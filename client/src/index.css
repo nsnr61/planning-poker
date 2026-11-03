@@ -6,38 +6,44 @@
 
 :root {
   --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-tertiary: #e9ecef;
-  --text-primary: #212529;
-  --text-secondary: #6c757d;
-  --text-muted: #adb5bd;
-  --border-color: #dee2e6;
+  --bg-secondary: #f2f2f2;
+  --bg-tertiary: #e6e6e6;
+  --text-primary: #262626;
+  --text-secondary: #595959;
+  --text-muted: #8c8c8c;
+  --border-color: #d9d9d9;
   --card-bg: #ffffff;
-  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --accent-color: #667eea;
-  --accent-hover: #5a6fd8;
-  --success-color: #28a745;
-  --warning-color: #ffc107;
-  --danger-color: #dc3545;
-  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  --accent-color: #991355;
+  --accent-hover: #7d0f45;
+  --accent-text: #991355;
+  --accent-subtle: #f7eaf0;
+  --accent-shadow: rgba(153, 19, 85, 0.28);
+  --success-color: #2e7d32;
+  --warning-color: #d97706;
+  --danger-color: #c62828;
+  --gradient: #f2f2f2;
 }
 
 [data-theme="dark"] {
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
-  --bg-tertiary: #404040;
-  --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --text-muted: #808080;
-  --border-color: #404040;
-  --card-bg: #2d2d2d;
-  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --accent-color: #7c8cff;
-  --accent-hover: #6b7bff;
-  --success-color: #34ce57;
-  --warning-color: #ffd43b;
-  --danger-color: #ff6b6b;
-  --gradient: linear-gradient(135deg, #2d2d2d 0%, #404040 100%);
+  --bg-primary: #18181b;
+  --bg-secondary: #1e1e22;
+  --bg-tertiary: #323238;
+  --text-primary: #f2f2f2;
+  --text-secondary: #b3b3b8;
+  --text-muted: #7a7a85;
+  --border-color: #3a3a42;
+  --card-bg: #242429;
+  --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  --accent-color: #991355;
+  --accent-hover: #b31964;
+  --accent-text: #e05297;
+  --accent-subtle: rgba(153, 19, 85, 0.25);
+  --accent-shadow: rgba(153, 19, 85, 0.45);
+  --success-color: #388e3c;
+  --warning-color: #f59e0b;
+  --danger-color: #e53935;
+  --gradient: #18181b;
 }
 
 body {
@@ -211,7 +217,7 @@ code {
 }
 
 .text-muted {
-  color: #6c757d;
+  color: var(--text-muted);
 }
 
 .mb-2 {
@@ -444,7 +450,7 @@ code {
 }
 
 .player-status.no-vote {
-  color: #dc3545;
+  color: var(--danger-color);
 }
 
 .player-status.watcher {
@@ -479,7 +485,7 @@ code {
 .stat-value {
   font-size: 24px;
   font-weight: bold;
-  color: var(--accent-color);
+  color: var(--accent-text);
   margin-bottom: 4px;
 }
 

@@ -118,7 +118,7 @@ const GameStats = ({ votes, players, game }) => {
                 <div className="vote-count">
                   <span style={{ color: card === '?' || card === '!' || card === '⏸️' 
                         ? 'var(--warning-color)' 
-                        : 'var(--accent-color)' }}>
+                        : 'var(--accent-text)' }}>
                     {count} {count === 1 ? 'vote' : 'votes'}
                   </span>
                   {' for '}

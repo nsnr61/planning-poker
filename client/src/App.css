@@ -125,7 +125,7 @@
 }
 
 .player-list {
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   border-radius: 8px;
   padding: 16px;
   margin: 16px 0;
@@ -136,7 +136,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .player-item:last-child {
@@ -149,11 +149,11 @@
 
 .player-status {
   font-size: 14px;
-  color: #6c757d;
+  color: var(--text-secondary);
 }
 
 .watcher-badge {
-  background: #6c757d;
+  background: var(--text-secondary);
   color: white;
   padding: 2px 8px;
   border-radius: 12px;
@@ -162,7 +162,7 @@
 }
 
 .vote-results {
-  background: #f8f9fa;
+  background: var(--bg-secondary);
   border-radius: 8px;
   padding: 16px;
   margin: 16px 0;
@@ -173,7 +173,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .vote-item:last-child {
@@ -181,7 +181,7 @@
 }
 
 .vote-card {
-  background: #667eea;
+  background: var(--accent-color);
   color: white;
   padding: 8px 16px;
   border-radius: 6px;
@@ -314,7 +314,7 @@
 .stat-highlight .stat-value {
   font-size: 32px;
   font-weight: bold;
-  color: var(--accent-color);
+  color: var(--accent-text);
   margin-bottom: 8px;
 }
 
@@ -363,7 +363,7 @@
   font-size: 16px;
   font-weight: bold;
   text-align: left;
-  color: var(--accent-color);
+  color: var(--accent-text);
 }
 
 .vote-bar {
@@ -441,29 +441,6 @@
   gap: 16px;
 }
 
-.github-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #8b5cf6; /* Purple color */
-  text-decoration: none;
-  transition: color 0.3s ease;
-  font-weight: 500;
-}
-
-.github-link:hover {
-  color: #7c3aed; /* Darker purple on hover */
-  text-decoration: none;
-}
-
-.github-icon {
-  transition: transform 0.2s ease;
-}
-
-.github-link:hover .github-icon {
-  transform: scale(1.1);
-}
-
 .footer-center {
   position: absolute;
   left: 50%;
@@ -500,7 +477,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--accent-color);
+  color: var(--accent-text);
   text-decoration: none;
   transition: color 0.3s ease;
   font-weight: 500;
@@ -520,7 +497,7 @@
 }
 
 .footer-content a {
-  color: var(--accent-color);
+  color: var(--accent-text);
   text-decoration: none;
   transition: color 0.3s ease;
 }
