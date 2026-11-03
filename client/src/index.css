@@ -79,7 +79,8 @@ code {
   transition: all 0.3s ease;
 }
 
-.btn {
+.btn,
+.btn-primary {
   background: var(--accent-color);
   color: white;
   border: none;
@@ -92,37 +93,47 @@ code {
   margin: 4px;
 }
 
-.btn:hover {
+.btn:hover,
+.btn-primary:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
 }
 
-.btn:active {
+.btn:active,
+.btn-primary:active {
   transform: translateY(0);
 }
 
 .btn:disabled {
-  background: var(--text-muted);
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
   cursor: not-allowed;
   transform: none;
 }
 
 .btn-success:disabled {
   background: var(--success-color);
+  color: white;
+  border: none;
   cursor: not-allowed;
   transform: none;
 }
 
 .btn-secondary {
-  background: var(--text-secondary);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
-.btn-secondary:hover {
-  background: var(--text-muted);
+.btn-secondary:hover:not(:disabled) {
+  background: var(--border-color);
+  color: var(--text-primary);
 }
 
 .btn-success {
   background: var(--success-color);
+  color: white;
 }
 
 .btn-success:hover {
@@ -132,6 +143,7 @@ code {
 
 .btn-danger {
   background: var(--danger-color);
+  color: white;
 }
 
 .btn-danger:hover {
@@ -141,7 +153,7 @@ code {
 
 .btn-warning {
   background: var(--warning-color);
-  color: #212529;
+  color: white;
 }
 
 .btn-warning:hover {
@@ -175,6 +187,7 @@ code {
 .input:focus {
   outline: none;
   border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
 }
 
 .select {
@@ -192,6 +205,7 @@ code {
 .select:focus {
   outline: none;
   border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
 }
 
 .grid {

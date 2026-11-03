@@ -627,7 +627,7 @@ body {
 }
 
 .change-name-link:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
 
@@ -651,7 +651,8 @@ body {
 }
 
 .modal-content {
-  background: #ffffff;
+  background: var(--card-bg);
+  color: var(--text-primary);
   border-radius: 16px;
   padding: 0;
   max-width: 420px;
@@ -662,7 +663,7 @@ body {
   position: relative;
   z-index: 10000;
   pointer-events: auto;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
   animation: modalSlideIn 0.2s ease-out;
   transform: translateZ(0);
   will-change: transform;
@@ -689,7 +690,7 @@ body {
 
 .modal-header h3 {
   margin: 0;
-  color: #1a1a1a;
+  color: var(--text-primary);
   font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -703,7 +704,7 @@ body {
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: #6b7280;
+  color: var(--text-secondary);
   padding: 8px;
   width: 32px;
   height: 32px;
@@ -715,8 +716,8 @@ body {
 }
 
 .modal-close:hover {
-  background-color: #f3f4f6;
-  color: #374151;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .modal-content form {
@@ -731,7 +732,7 @@ body {
   display: block;
   margin-bottom: 12px;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   font-size: 14px;
   letter-spacing: 0.01em;
 }
@@ -739,11 +740,11 @@ body {
 .form-group input {
   width: 100%;
   padding: 16px 20px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   font-size: 16px;
-  background: #ffffff;
-  color: #1a1a1a;
+  background: var(--card-bg);
+  color: var(--text-primary);
   transition: all 0.2s ease;
   box-sizing: border-box;
   font-family: inherit;
@@ -751,19 +752,19 @@ body {
 
 .form-group input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  background: #ffffff;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-subtle);
+  background: var(--card-bg);
 }
 
 .form-group input::placeholder {
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
 .error-text {
-  color: #dc2626;
-  font-size: 14px;
-  margin-top: 8px;
+  color: var(--danger-color);
+  font-size: 13px;
+  margin-top: 6px;
   display: block;
   font-weight: 500;
 }
@@ -815,20 +816,20 @@ body {
   font-weight: 600;
   min-width: 100px;
   transition: all 0.2s ease;
-  border: none;
   cursor: pointer;
   letter-spacing: 0.01em;
 }
 
 .modal-actions .btn-primary {
-  background: #10b981;
+  background: var(--accent-color);
   color: #ffffff;
+  border: none;
 }
 
 .modal-actions .btn-primary:hover:not(:disabled) {
-  background: #059669;
+  background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 12px var(--accent-shadow);
 }
 
 .modal-actions .btn-primary:active {
@@ -836,14 +837,15 @@ body {
 }
 
 .modal-actions .btn-secondary {
-  background: #6b7280;
-  color: #ffffff;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .modal-actions .btn-secondary:hover:not(:disabled) {
-  background: #4b5563;
+  background: var(--border-color);
+  color: var(--text-primary);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
 }
 
 .modal-actions .btn-secondary:active {
@@ -871,11 +873,4 @@ body {
   height: 100vh !important;
   margin: 0 !important;
   padding: 0 !important;
-}
-
-.error-text {
-  color: #dc3545;
-  font-size: 12px;
-  margin-top: 4px;
-  display: block;
 }

@@ -121,7 +121,7 @@ const GameSetup = ({ gameId, onCreateGame, onJoinGame, prefillName = '' }) => {
             </div>
           )}
 
-          <button type="submit" className="btn">
+          <button type="submit" className="btn btn-primary">
             {gameId ? 'Join the Game' : 'Create a Game'}
           </button>
         </form>

@@ -37,7 +37,7 @@ const GameControls = ({ game, isWatcher, onRevealVotes, onResetGame, onDeckChang
           {canReset && (
             <button
               onClick={onResetGame}
-              className="btn btn-warning"
+              className="btn btn-primary"
             >
               Start New Round
             </button>
@@ -46,7 +46,7 @@ const GameControls = ({ game, isWatcher, onRevealVotes, onResetGame, onDeckChang
 
         <button
           onClick={onToggleRole}
-          className="btn btn-warning"
+          className="btn btn-secondary"
         >
           {isWatcher ? '♠️ Switch to Player ♣️' : 'Switch to Watcher 👀'}
         </button>
@@ -100,7 +100,7 @@ const GameControls = ({ game, isWatcher, onRevealVotes, onResetGame, onDeckChang
                     setIsEditingCustom(true);
                     setShowCustomDeckEditor(true);
                   }}
-                  className="btn btn-warning btn-mobile-full"
+                  className="btn btn-secondary btn-mobile-full"
                 >
                   Edit Custom Deck
                 </button>

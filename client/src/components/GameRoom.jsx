@@ -135,7 +135,7 @@ const GameRoom = ({ game, playerName, isWatcher, socketId, onToggleRole }) => {
       <div className="flex justify-between align-center mb-4">
         <h1>Planning Poker</h1>
         <div className="flex align-center gap-3">
-          <button onClick={copyGameUrl} className="btn btn-success btn-share">
+          <button onClick={copyGameUrl} className="btn btn-primary btn-share">
             Share Link
           </button>
           <ThemeToggle inline={true} />
