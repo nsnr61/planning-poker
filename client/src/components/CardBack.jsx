@@ -9,8 +9,7 @@ const CardBack = () => {
         backgroundImage: `url(${cardBgImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: 'white'
+        backgroundRepeat: 'no-repeat'
       }}
     >
     </div>

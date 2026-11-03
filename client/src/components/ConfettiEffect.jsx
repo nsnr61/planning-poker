@@ -42,7 +42,7 @@ const ConfettiEffect = ({ trigger, onComplete }) => {
       numberOfPieces={300}
       gravity={0.3}
       initialVelocityY={-20}
-      colors={['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe']}
+      colors={['#991355', '#7d0f45', '#c22570', '#e05297', '#f2cadb', '#595959']}
     />
   );
 };

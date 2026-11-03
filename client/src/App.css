@@ -34,8 +34,9 @@
 
 /* Planning Poker specific styles */
 .poker-card {
-  background: white;
-  border: 2px solid #e1e5e9;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
   border-radius: 12px;
   padding: 16px;
   margin: 8px;
@@ -45,34 +46,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   user-select: none;
 }
 
 .poker-card:hover:not(.selected) {
-  border-color: #667eea;
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  background: var(--card-bg);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px var(--accent-shadow);
 }
 
 .poker-card.selected {
-  border-color: #667eea;
-  background: #f0f4ff;
+  border-color: var(--accent-color);
+  background: var(--accent-color);
+  color: white;
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 20px var(--accent-shadow);
   font-weight: bold;
   font-size: 20px;
 }
 
 .poker-card.voted {
-  border-color: #28a745;
-  background: #f0fff4;
+  border-color: var(--success-color);
+  background: var(--bg-secondary);
 }
 
 .poker-card.revealed {
-  border-color: #ffc107;
-  background: #fffbf0;
+  border-color: var(--warning-color);
+  background: var(--bg-secondary);
 }
 
 /* Card Selection Grid */
@@ -84,25 +88,6 @@
   margin: 0 auto;
   max-width: 100%;
   justify-content: center;
-}
-
-.poker-card {
-  font-size: 20px;
-  font-weight: bold;
-  color: var(--text-primary);
-  background: var(--card-bg);
-  border: 2px solid var(--border-color);
-}
-
-.poker-card:hover {
-  color: var(--text-primary);
-  background: var(--card-bg);
-}
-
-.poker-card.selected {
-  color: var(--text-primary);
-  background: var(--accent-color);
-  color: white;
 }
 
 .poker-card.special-card {

@@ -147,7 +147,7 @@ const GameRoom = ({ game, playerName, isWatcher, socketId, onToggleRole }) => {
         <h3>Players ({game.players.length})</h3>
         {isConsensus && game.revealed && (
           <div style={{ 
-            background: 'var(--success-color)', 
+            backgroundColor: 'var(--success-color)', 
             color: 'white', 
             padding: '12px', 
             borderRadius: '8px',

@@ -358,6 +358,8 @@ code {
 }
 
 .card-back {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
   color: white;
   position: relative;
   overflow: hidden;
@@ -384,8 +386,14 @@ code {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--accent-color);
+  mix-blend-mode: color;
+  opacity: 0.85;
   border-radius: 8px;
+}
+
+.watcher-card-back::before {
+  content: none;
 }
 
 .card-back-design {
