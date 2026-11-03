@@ -545,7 +545,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.get('*', (req, res) => {
+app.get('{*splat}', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 

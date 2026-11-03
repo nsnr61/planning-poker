@@ -175,7 +175,7 @@ const AppContent = () => {
         </div>
         
         <div className="mb-4">
-          {process.env.NODE_ENV === 'development' && (
+          {import.meta.env.DEV && (
             <div className="mb-3">
               <button 
                 onClick={() => connection.disconnect()} 

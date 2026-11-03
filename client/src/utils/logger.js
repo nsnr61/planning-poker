@@ -13,8 +13,12 @@ const LOG_LEVELS = {
 
 // Get log level from environment variable, default to DEBUG in development
 const getLogLevel = () => {
-  const envLevel = process.env.REACT_APP_LOG_LEVEL || process.env.NODE_ENV === 'production' ? 'INFO' : 'DEBUG';
-  return LOG_LEVELS[envLevel.toUpperCase()] || LOG_LEVELS.DEBUG;
+  const viteEnv = typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env : {};
+  const nodeEnv = typeof process !== 'undefined' && process.env ? process.env : {};
+  const configuredLevel = viteEnv.VITE_LOG_LEVEL || nodeEnv.REACT_APP_LOG_LEVEL;
+  const isProd = Boolean(viteEnv.PROD || nodeEnv.NODE_ENV === 'production');
+  const envLevel = configuredLevel || (isProd ? 'INFO' : 'DEBUG');
+  return LOG_LEVELS[envLevel.toUpperCase()] ?? LOG_LEVELS.DEBUG;
 };
 
 const currentLogLevel = getLogLevel();

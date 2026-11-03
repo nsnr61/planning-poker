@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('node:crypto');
 
 const CARD_DECKS = {
   fibonacci: {
@@ -149,7 +149,7 @@ class Game {
 
 function createGameEngine({
   persistence = null,
-  idGenerator = () => uuidv4().substring(0, 8),
+  idGenerator = () => randomUUID().substring(0, 8),
   now = () => new Date()
 } = {}) {
   const games = new Map();

@@ -9,14 +9,14 @@ COPY package*.json ./
 COPY client/package*.json ./client/
 
 # Install dependencies
-RUN npm install --no-audit --no-fund --verbose || npm install --legacy-peer-deps --no-audit --no-fund
-RUN cd client && npm install --no-audit --no-fund --verbose || npm install --legacy-peer-deps --no-audit --no-fund
+RUN npm install --no-audit --no-fund
+RUN cd client && npm install --no-audit --no-fund
 
 # Copy source code
 COPY . .
 
 # Build React app
-RUN cd client && NODE_OPTIONS="--no-deprecation" npm run build
+RUN cd client && npm run build
 
 # Production stage
 #Previous Version FROM node:24-alpine
@@ -30,7 +30,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install only production dependencies
-RUN npm install --production --no-audit --no-fund --verbose || npm install --production --legacy-peer-deps --no-audit --no-fund
+RUN npm install --omit=dev --no-audit --no-fund
 
 # Copy built React app
 COPY --from=build /app/client/build ./client/build
