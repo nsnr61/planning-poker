@@ -99,3 +99,9 @@ Thumbs.db
 
 # Docker
 .dockerignore
+
+# KiloCode AI Setup
+.kilo/
+kilo.jsonc
+AGENTS.md
+
