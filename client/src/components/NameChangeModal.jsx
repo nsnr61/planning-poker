@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { socketService } from '../services/socketService';
 import ModalPortal from './ModalPortal';
 import logger from '../utils/logger';
@@ -14,17 +14,33 @@ const NameChangeModal = ({ game, currentPlayer, onClose }) => {
     setErrors({});
   }, [currentPlayer]);
 
-  // Prevent body scroll when modal is open
+  const handleCancel = useCallback(() => {
+    setNewName(currentPlayer?.name || '');
+    setErrors({});
+    onClose();
+  }, [currentPlayer?.name, onClose]);
+
+  // Prevent body scroll when modal is open and handle Escape key dismissal
   useEffect(() => {
     document.body.style.overflow = 'hidden';
+
+    const handleGlobalKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+      }
+    };
+
+    document.addEventListener('keydown', handleGlobalKeyDown);
+
     return () => {
       document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', handleGlobalKeyDown);
       // Clear any pending timeout
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
     };
-  }, [timeoutId]);
+  }, [timeoutId, handleCancel]);
 
   // Clear timeout when player name changes (indicating success)
   useEffect(() => {
@@ -87,12 +103,6 @@ const NameChangeModal = ({ game, currentPlayer, onClose }) => {
     }
   };
 
-  const handleCancel = () => {
-    setNewName(currentPlayer?.name || '');
-    setErrors({});
-    onClose();
-  };
-
   // Prevent modal from closing when clicking inside the modal content
   const handleModalContentClick = (e) => {
     e.stopPropagation();
@@ -105,19 +115,11 @@ const NameChangeModal = ({ game, currentPlayer, onClose }) => {
     e.stopPropagation();
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Escape') {
-      handleCancel();
-    }
-  };
-
   return (
     <ModalPortal>
       <div 
         className="modal-overlay"
-        onMouseMove={handleMouseEvents}
-        onMouseEnter={handleMouseEvents}
-        onMouseLeave={handleMouseEvents}
+        onClick={handleCancel}
       >
         <div 
           className="modal-content" 
@@ -131,21 +133,22 @@ const NameChangeModal = ({ game, currentPlayer, onClose }) => {
           </div>
           
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="playerName">Player Name</label>
-              <input
-                type="text"
-                id="playerName"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Enter your name"
-                maxLength={20}
-                required
-                autoFocus
-                disabled={isSubmitting}
-              />
-              {errors.name && <span className="error-text">{errors.name}</span>}
+            <div className="modal-body">
+              <div className="form-group">
+                <label htmlFor="playerName">Player Name</label>
+                <input
+                  type="text"
+                  id="playerName"
+                  value={newName}
+                  onChange={(e) => setNewName(e.target.value)}
+                  placeholder="Enter your name"
+                  maxLength={20}
+                  required
+                  autoFocus
+                  disabled={isSubmitting}
+                />
+                {errors.name && <span className="error-text">{errors.name}</span>}
+              </div>
             </div>
 
             <div className="modal-actions">

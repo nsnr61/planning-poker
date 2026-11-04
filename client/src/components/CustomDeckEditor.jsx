@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { socketService } from '../services/socketService';
+
+const MAX_CUSTOM_DECK_CARDS = 15;
 
 const CustomDeckEditor = ({ game, onClose, isEditing = false }) => {
   const [deckName, setDeckName] = useState('');
@@ -9,12 +11,41 @@ const CustomDeckEditor = ({ game, onClose, isEditing = false }) => {
   useEffect(() => {
     if (isEditing && game.customDeck) {
       setDeckName(game.customDeck.name);
-      setCards([...game.customDeck.cards, '']); // Add empty slot for new cards
+      const existingCards = game.customDeck.cards || [];
+      setCards(
+        existingCards.length < MAX_CUSTOM_DECK_CARDS
+          ? [...existingCards, '']
+          : [...existingCards]
+      );
     }
   }, [isEditing, game.customDeck]);
 
+  const handleCancel = useCallback(() => {
+    setDeckName('');
+    setCards(['', '', '', '', '']);
+    setErrors({});
+    onClose();
+  }, [onClose]);
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    const handleGlobalKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+      }
+    };
+
+    document.addEventListener('keydown', handleGlobalKeyDown);
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', handleGlobalKeyDown);
+    };
+  }, [handleCancel]);
+
   const addCardSlot = () => {
-    if (cards.length < 15) {
+    if (cards.length < MAX_CUSTOM_DECK_CARDS) {
       setCards([...cards, '']);
     }
   };
@@ -78,70 +109,65 @@ const CustomDeckEditor = ({ game, onClose, isEditing = false }) => {
     onClose();
   };
 
-  const handleCancel = () => {
-    setDeckName('');
-    setCards(['', '', '', '', '']);
-    setErrors({});
-    onClose();
-  };
-
   return (
     <div className="modal-overlay" onClick={handleCancel}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-content modal-wide" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h3>{isEditing ? 'Edit Custom Deck (15 Cards Max)' : 'Create Custom Deck (15 Cards Max)'}</h3>
-          <button className="modal-close" onClick={handleCancel}>×</button>
+          <button type="button" className="modal-close" onClick={handleCancel} aria-label="Close">×</button>
         </div>
         
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="deckName">Deck Name:</label>
-            <input
-              type="text"
-              id="deckName"
-              className="input"
-              value={deckName}
-              onChange={(e) => setDeckName(e.target.value)}
-              placeholder="Enter deck name"
-              maxLength={15}
-              required
-            />
-            {errors.deckName && <span className="error-text">{errors.deckName}</span>}
-          </div>
+          <div className="modal-body">
+            <div className="form-group">
+              <label htmlFor="deckName">Deck Name:</label>
+              <input
+                type="text"
+                id="deckName"
+                className="input"
+                value={deckName}
+                onChange={(e) => setDeckName(e.target.value)}
+                placeholder="Enter deck name"
+                maxLength={15}
+                required
+              />
+              {errors.deckName && <span className="error-text">{errors.deckName}</span>}
+            </div>
 
-          <div className="form-group">
-            <label>Cards:</label>
-            {errors.cards && <span className="error-text">{errors.cards}</span>}
-            <div className="cards-input-container">
-              {cards.map((card, index) => (
-                <div key={index} className="card-input-row">
-                  <input
-                    type="text"
-                    className="input card-input"
-                    value={card}
-                    onChange={(e) => updateCard(index, e.target.value)}
-                    placeholder={`Card ${index + 1}`}
-                    maxLength={15}
-                  />
-                  {cards.length > 1 && (
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm"
-                      onClick={() => removeCardSlot(index)}
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-              ))}
-              <button
-                type="button"
-                className="btn btn-secondary btn-sm"
-                onClick={addCardSlot}
-                disabled={cards.length >= 15}
-              >
-                Add Card {cards.length >= 15 ? '(Max 15 cards)' : ''}
-              </button>
+            <div className="form-group">
+              <label>Cards:</label>
+              {errors.cards && <span className="error-text">{errors.cards}</span>}
+              <div className="cards-input-container">
+                {cards.map((card, index) => (
+                  <div key={index} className="card-input-row">
+                    <input
+                      type="text"
+                      className="input card-input"
+                      value={card}
+                      onChange={(e) => updateCard(index, e.target.value)}
+                      placeholder={`Card ${index + 1}`}
+                      maxLength={15}
+                    />
+                    {cards.length > 1 && (
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm"
+                        onClick={() => removeCardSlot(index)}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={addCardSlot}
+                  disabled={cards.length >= MAX_CUSTOM_DECK_CARDS}
+                >
+                  Add Card {cards.length >= MAX_CUSTOM_DECK_CARDS ? '(Max 15 cards)' : ''}
+                </button>
+              </div>
             </div>
           </div>
 
