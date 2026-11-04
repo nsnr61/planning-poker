@@ -43,8 +43,8 @@ const GameSetup = ({ gameId, onCreateGame, onJoinGame, prefillName = '' }) => {
     <div className={gameId ? "join-game-container" : "grid grid-2"}>
       <div className="card">
         <h2>{gameId ? 'Join the Game' : 'Create a New Game'}</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
+        <form className="game-setup-form" onSubmit={handleSubmit}>
+          <div className="form-group">
             <label htmlFor="playerName">Your Name:</label>
             <input
               type="text"
@@ -58,8 +58,8 @@ const GameSetup = ({ gameId, onCreateGame, onJoinGame, prefillName = '' }) => {
             />
           </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label>
+          <div className="form-group">
+            <label className="checkbox-label">
               <input
                 type="checkbox"
                 checked={isWatcher}
@@ -76,7 +76,7 @@ const GameSetup = ({ gameId, onCreateGame, onJoinGame, prefillName = '' }) => {
               padding: '16px', 
               borderRadius: '8px',
               border: '1px solid var(--border-color)',
-              marginBottom: '16px'
+              marginBottom: '24px'
             }}>
               <p style={{ margin: '0 0 8px 0' }}>You're about to join game:</p>
               <div className="game-url" style={{ 
@@ -94,7 +94,7 @@ const GameSetup = ({ gameId, onCreateGame, onJoinGame, prefillName = '' }) => {
           )}
 
           {!gameId && (
-            <div>
+            <div className="form-group">
               <label htmlFor="deckType">Card Deck:</label>
               <select
                 id="deckType"
@@ -121,7 +121,7 @@ const GameSetup = ({ gameId, onCreateGame, onJoinGame, prefillName = '' }) => {
             </div>
           )}
 
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary setup-submit-btn">
             {gameId ? 'Join the Game' : 'Create a Game'}
           </button>
         </form>
