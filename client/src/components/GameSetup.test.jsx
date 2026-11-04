@@ -123,4 +123,28 @@ describe('GameSetup Form Group Rhythm & Submit Action Clearance (Ticket 05)', ()
       gameId: 'GAME456'
     });
   });
+
+  it('preserves standard .form-group on all form groups including the last one prior to submit (Ticket 08)', async () => {
+    const { container } = render(
+      <GameSetup onCreateGame={vi.fn()} onJoinGame={vi.fn()} />
+    );
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Card Deck:/i)).toBeInTheDocument();
+    });
+
+    const form = container.querySelector('.game-setup-form');
+    expect(form).toBeInTheDocument();
+
+    const formGroups = form.querySelectorAll('.form-group');
+    expect(formGroups.length).toBe(3);
+
+    formGroups.forEach((group) => {
+      expect(group).toHaveClass('form-group');
+    });
+
+    const submitBtn = form.querySelector('.setup-submit-btn');
+    expect(submitBtn).toBeInTheDocument();
+    expect(submitBtn.previousElementSibling).toBe(formGroups[formGroups.length - 1]);
+  });
 });

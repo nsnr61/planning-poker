@@ -4,7 +4,7 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** resolved
+**Status:** ready-for-agent
 
 ```css
 /* Decision-rich layout contract from prototype */

@@ -82,4 +82,20 @@ describe('NameChangeModal Three-Tier Architecture & Dismissal (Ticket 04)', () =
     fireEvent.click(overlay);
     expect(onClose).toHaveBeenCalledTimes(2);
   });
+
+  it('locks document.body.style.overflow to hidden on mount and restores to unset on unmount via useModalDismiss', () => {
+    document.body.style.overflow = '';
+    const { unmount } = render(
+      <NameChangeModal
+        game={sampleGame}
+        currentPlayer={samplePlayer}
+        onClose={vi.fn()}
+      />
+    );
+
+    expect(document.body.style.overflow).toBe('hidden');
+
+    unmount();
+    expect(document.body.style.overflow).toBe('unset');
+  });
 });

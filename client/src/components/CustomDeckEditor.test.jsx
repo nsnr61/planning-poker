@@ -115,4 +115,16 @@ describe('CustomDeckEditor Three-Tier Architecture & 15 Card Slots (Ticket 04)',
     fireEvent.click(overlay);
     expect(onClose).toHaveBeenCalledTimes(2);
   });
+
+  it('locks document.body.style.overflow to hidden on mount and restores to unset on unmount via useModalDismiss', () => {
+    document.body.style.overflow = '';
+    const { unmount } = render(
+      <CustomDeckEditor game={sampleGame} onClose={vi.fn()} isEditing={false} />
+    );
+
+    expect(document.body.style.overflow).toBe('hidden');
+
+    unmount();
+    expect(document.body.style.overflow).toBe('unset');
+  });
 });

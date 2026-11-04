@@ -4,7 +4,7 @@
 
 **Blocked by:** 01: Corporate Theme Tokens, Flächenhierarchie und Kontrast-Typografie
 
-**Status:** resolved
+**Status:** ready-for-agent
 
 - [x] **Wenn** ein `Player` während einer `Round` (`revealed === false`) über eine Schätzkarte im `Card Deck` hovert, **dann** zeigt die Karte einen Rahmen in `var(--accent-color)` (`#991355`) und einen Schatten in `var(--accent-shadow)` statt der bisherigen `#667eea`-Werte.
 - [x] **Wenn** eine Schätzkarte im `Card Deck` ausgewählt ist (`.poker-card.selected`), **dann** wird sie flächig in `var(--accent-color)` (`#991355`) mit weißer Schrift und `var(--accent-shadow)` dargestellt.

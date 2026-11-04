@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { socketService } from '../services/socketService';
 import ModalPortal from './ModalPortal';
 import logger from '../utils/logger';
+import { useModalDismiss } from '../hooks/useModalDismiss';
 
 const NameChangeModal = ({ game, currentPlayer, onClose }) => {
   const [newName, setNewName] = useState(currentPlayer?.name || '');
@@ -21,26 +22,16 @@ const NameChangeModal = ({ game, currentPlayer, onClose }) => {
   }, [currentPlayer?.name, onClose]);
 
   // Prevent body scroll when modal is open and handle Escape key dismissal
+  useModalDismiss(handleCancel);
+
+  // Clear any pending timeout on unmount
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-
-    const handleGlobalKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        handleCancel();
-      }
-    };
-
-    document.addEventListener('keydown', handleGlobalKeyDown);
-
     return () => {
-      document.body.style.overflow = 'unset';
-      document.removeEventListener('keydown', handleGlobalKeyDown);
-      // Clear any pending timeout
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
     };
-  }, [timeoutId, handleCancel]);
+  }, [timeoutId]);
 
   // Clear timeout when player name changes (indicating success)
   useEffect(() => {

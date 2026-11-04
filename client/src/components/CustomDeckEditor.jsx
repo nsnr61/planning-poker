@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { socketService } from '../services/socketService';
+import { useModalDismiss } from '../hooks/useModalDismiss';
 
 const MAX_CUSTOM_DECK_CARDS = 15;
 
@@ -27,22 +28,7 @@ const CustomDeckEditor = ({ game, onClose, isEditing = false }) => {
     onClose();
   }, [onClose]);
 
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-
-    const handleGlobalKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        handleCancel();
-      }
-    };
-
-    document.addEventListener('keydown', handleGlobalKeyDown);
-
-    return () => {
-      document.body.style.overflow = 'unset';
-      document.removeEventListener('keydown', handleGlobalKeyDown);
-    };
-  }, [handleCancel]);
+  useModalDismiss(handleCancel);
 
   const addCardSlot = () => {
     if (cards.length < MAX_CUSTOM_DECK_CARDS) {

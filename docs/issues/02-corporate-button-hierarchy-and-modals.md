@@ -4,7 +4,7 @@
 
 **Blocked by:** 01: Corporate Theme Tokens, Flächenhierarchie und Kontrast-Typografie
 
-**Status:** resolved
+**Status:** ready-for-agent
 
 - [x] **Wenn** primäre Aktionen gerendert werden ("Create a Game", "Join the Game", "Share Link", "Start New Round", inaktive `Card Deck`-Auswahlbuttons, "Create Custom Deck" sowie Modal-Submit-Buttons "Save", "Create Deck", "Update Deck"), **dann** verwenden sie den Primär-Button-Stil (`.btn` / `.btn-primary`) in `var(--accent-color)` (`#991355`) mit weißer Schrift.
 - [x] **Wenn** sekundäre Aktionen gerendert werden ("Switch to Watcher" / "Switch to Player", "Edit Custom Deck", "Add Card" sowie Modal-"Cancel"), **dann** verwenden sie `.btn-secondary` als neutralen Corporate-Button (`background: var(--bg-tertiary)`, `color: var(--text-primary)`, `border: 1px solid var(--border-color)`).

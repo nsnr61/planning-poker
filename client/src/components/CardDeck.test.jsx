@@ -46,4 +46,22 @@ describe('CardDeck (React 19 + Vitest)', () => {
     fireEvent.click(screen.getByText('2'));
     expect(onCardSelect).not.toHaveBeenCalled();
   });
+
+  it('renders estimation cards inside .card-selection-grid container for harmonized spacing (Ticket 08)', () => {
+    const { container } = render(
+      <CardDeck
+        deck={sampleDeck}
+        onCardSelect={vi.fn()}
+        selectedCard={null}
+        hasVoted={false}
+        isWatcher={false}
+        revealed={false}
+      />
+    );
+
+    const grid = container.querySelector('.card-selection-grid');
+    expect(grid).toBeInTheDocument();
+    const cards = grid.querySelectorAll('.poker-card');
+    expect(cards.length).toBe(sampleDeck.cards.length);
+  });
 });

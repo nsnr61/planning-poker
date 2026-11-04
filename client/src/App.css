@@ -209,10 +209,16 @@
   margin-bottom: 24px;
 }
 
-.round-actions {
+.round-actions,
+.deck-buttons-group,
+.custom-deck-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.deck-buttons-group {
+  margin-top: 12px;
 }
 
 .round-controls-row .btn,
@@ -239,19 +245,6 @@
 
 .deck-selector h4 {
   margin-bottom: 8px;
-}
-
-.deck-buttons-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 12px;
-}
-
-.custom-deck-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
 }
 
 .deck-option {
@@ -285,7 +278,7 @@
 @media (max-width: 768px) {
   .card-selection-grid {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
+    gap: 12px;
   }
   
   .poker-card {
@@ -835,10 +828,6 @@ body {
   color: var(--text-muted);
 }
 
-.game-setup-form .form-group:last-of-type {
-  margin-bottom: 0;
-}
-
 .setup-submit-btn {
   margin-top: 24px;
 }
@@ -905,7 +894,7 @@ body {
   }
 
   .modal-body {
-    padding: 20px;
+    padding: 20px 20px;
   }
 
   .modal-actions {
