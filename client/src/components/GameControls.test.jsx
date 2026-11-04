@@ -110,4 +110,78 @@ describe('GameControls Corporate Button Hierarchy (Ticket 02)', () => {
     expect(roleToggleBtn).toHaveClass('btn', 'btn-secondary');
     expect(roleToggleBtn).not.toHaveClass('btn-warning');
   });
+
+  it('structures round actions, role switch, watcher banner, and deck selector in separated semantic containers (Ticket 06)', async () => {
+    const onRevealVotes = vi.fn();
+    const onToggleRole = vi.fn();
+    const onDeckChange = vi.fn();
+
+    const activeWatcherGame = {
+      id: 'GAME1234',
+      revealed: false,
+      canReveal: true,
+      deckType: 'fibonacci',
+      deck: { name: 'Fibonacci', cards: ['1', '2', '3', '5'] },
+      customDeck: null,
+      players: [{ id: 'p1', name: 'Alice', isWatcher: true, hasVoted: false }],
+      votes: { p2: '3' }
+    };
+
+    const { container } = render(
+      <GameControls
+        game={activeWatcherGame}
+        isWatcher={true}
+        onRevealVotes={onRevealVotes}
+        onResetGame={vi.fn()}
+        onDeckChange={onDeckChange}
+        onToggleRole={onToggleRole}
+      />
+    );
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'T-Shirt Sizing' })).toBeInTheDocument();
+    });
+
+    // Primary round controls row separated from watcher banner and deck selector
+    const roundControlsRow = container.querySelector('.round-controls-row');
+    expect(roundControlsRow).toBeInTheDocument();
+
+    const roundActionsGroup = roundControlsRow.querySelector('.round-actions');
+    expect(roundActionsGroup).toBeInTheDocument();
+
+    const revealBtn = screen.getByRole('button', { name: 'Reveal Votes' });
+    expect(roundActionsGroup).toContainElement(revealBtn);
+
+    const roleSwitchBtn = screen.getByRole('button', { name: /Switch to Player/i });
+    expect(roundControlsRow).toContainElement(roleSwitchBtn);
+    expect(roundActionsGroup).not.toContainElement(roleSwitchBtn);
+
+    // Watcher banner semantic container
+    const watcherBanner = container.querySelector('.watcher-banner');
+    expect(watcherBanner).toBeInTheDocument();
+    expect(watcherBanner).toHaveTextContent(/Watcher Mode:/i);
+
+    // Deck selector & button group structure when revealed === false
+    const deckSelector = container.querySelector('.deck-selector');
+    expect(deckSelector).toBeInTheDocument();
+    expect(roundControlsRow).not.toContainElement(deckSelector);
+
+    const deckButtonsRow = deckSelector.querySelector('.deck-buttons-group');
+    expect(deckButtonsRow).toBeInTheDocument();
+
+    const tshirtBtn = screen.getByRole('button', { name: 'T-Shirt Sizing' });
+    const createCustomBtn = screen.getByRole('button', { name: 'Create Custom Deck' });
+    expect(deckButtonsRow).toContainElement(tshirtBtn);
+    expect(deckSelector.querySelector('.custom-deck-actions')).toContainElement(createCustomBtn);
+
+    // Verify interactions
+    fireEvent.click(revealBtn);
+    expect(onRevealVotes).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(roleSwitchBtn);
+    expect(onToggleRole).toHaveBeenCalledTimes(1);
+
+    fireEvent.click(tshirtBtn);
+    expect(onDeckChange).toHaveBeenCalledWith('tshirt');
+  });
 });

@@ -125,4 +125,75 @@ describe('GameRoom Corporate UI & Consensus (Tickets 02 & 03)', () => {
       })
     );
   });
+
+  it('renders standardized .card sections for Players, CardDeck, GameStats, and GameControls with interactive round and deck controls (Ticket 06)', async () => {
+    const unrevealedGame = {
+      id: 'GAME1234',
+      revealed: false,
+      canReveal: true,
+      deckType: 'fibonacci',
+      deck: { name: 'Fibonacci', cards: ['1', '2', '3', '5'] },
+      customDeck: { name: 'Custom Team', cards: ['10', '20'] },
+      players: [
+        { id: 'p1', name: 'Alice', isWatcher: false, hasVoted: true },
+        { id: 'p2', name: 'Bob', isWatcher: false, hasVoted: true }
+      ],
+      votes: { p1: '3', p2: '5' }
+    };
+
+    const { container, rerender } = render(
+      <GameRoom
+        game={unrevealedGame}
+        playerName="Alice"
+        isWatcher={false}
+        socketId="p1"
+      />
+    );
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'Fibonacci' })).toBeInTheDocument();
+    });
+
+    // When unrevealed and active player: 3 .card containers (Players, CardDeck, GameControls)
+    const cardsUnrevealed = container.querySelectorAll('.card');
+    expect(cardsUnrevealed.length).toBe(3);
+
+    // CardDeck grid renders inside a .card container with .card-selection-grid
+    const cardGrid = container.querySelector('.card .card-selection-grid');
+    expect(cardGrid).toBeInTheDocument();
+    expect(cardGrid.querySelectorAll('.poker-card').length).toBe(4);
+
+    // GameControls renders .round-controls-row and .deck-selector inside .card
+    expect(container.querySelector('.card .round-controls-row')).toBeInTheDocument();
+    expect(container.querySelector('.card .deck-selector .deck-buttons-group')).toBeInTheDocument();
+    expect(container.querySelector('.card .deck-selector .custom-deck-actions')).toBeInTheDocument();
+
+    // Rerender in revealed state to verify GameStats (.card.game-stats-revealed) and hidden CardDeck / .deck-selector
+    const revealedGame = {
+      ...unrevealedGame,
+      revealed: true
+    };
+
+    rerender(
+      <GameRoom
+        game={revealedGame}
+        playerName="Alice"
+        isWatcher={false}
+        socketId="p1"
+      />
+    );
+
+    expect(container.querySelector('.card-selection-grid')).not.toBeInTheDocument();
+    expect(container.querySelector('.deck-selector')).not.toBeInTheDocument();
+
+    const statsCard = container.querySelector('.card.game-stats-revealed');
+    expect(statsCard).toBeInTheDocument();
+    expect(statsCard.querySelector('.stats-summary')).toBeInTheDocument();
+    expect(statsCard.querySelectorAll('.stat-highlight').length).toBe(3);
+    expect(statsCard.querySelector('.distribution-grid')).toBeInTheDocument();
+    expect(statsCard.querySelectorAll('.distribution-item').length).toBe(2);
+
+    const startNewRoundBtn = screen.getByRole('button', { name: 'Start New Round' });
+    expect(container.querySelector('.round-controls-row .round-actions')).toContainElement(startNewRoundBtn);
+  });
 });

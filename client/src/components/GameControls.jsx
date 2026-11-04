@@ -22,8 +22,8 @@ const GameControls = ({ game, isWatcher, onRevealVotes, onResetGame, onDeckChang
     <div className="card">
       <h3>Game Controls</h3>
       
-      <div className="flex flex-wrap gap-2 mb-3" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="flex flex-wrap gap-2">
+      <div className="round-controls-row">
+        <div className="round-actions">
           {!canReset && (
             <button
               onClick={onRevealVotes}
@@ -53,12 +53,7 @@ const GameControls = ({ game, isWatcher, onRevealVotes, onResetGame, onDeckChang
       </div>
 
       {isWatcher && (
-        <div className="mt-3" style={{ 
-          background: 'var(--bg-tertiary)', 
-          padding: '12px', 
-          borderRadius: '6px',
-          border: '1px solid var(--border-color)'
-        }}>
+        <div className="watcher-banner">
           <p className="text-muted mb-0">
             <strong>Watcher Mode:</strong> You can reveal votes and start new rounds, but you cannot vote.
           </p>
@@ -71,7 +66,7 @@ const GameControls = ({ game, isWatcher, onRevealVotes, onResetGame, onDeckChang
           <p className="text-muted mb-2">
             Changing the deck will reset the current round
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="deck-buttons-group">
             {Object.entries(availableDecks).map(([key, deck]) => (
               <button
                 key={key}
